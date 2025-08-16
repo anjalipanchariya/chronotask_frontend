@@ -10,7 +10,7 @@ function TaskPage() {
   useEffect(() => {
     axios.get(`http://localhost:8080/api/tasks/${date}`)
       .then(res => {
-        console.log("Fetched tasks:", res.data);
+        // console.log("Fetched tasks:", res.data);
         setTasks(res.data)
       })
       .catch(err => console.error(err));
