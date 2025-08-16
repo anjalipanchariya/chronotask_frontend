@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
@@ -27,8 +26,22 @@ function TaskPage() {
     }]);
   };
 
-  const handleDeleteTask = (id) => {
-    setTasks(tasks.filter(task => task.id !== id));
+  const handleDeleteTask = async (task) => {
+
+    if (task.id !== null && task.id !== undefined) {
+      try {
+        axios.delete(`http://localhost:8080/api/tasks/${task.id}`);
+        setTasks(tasks.filter(t => task.id !== t.id));
+        console.log("The task with id ", task.id, " was deleted ");
+      }
+      catch (error) {
+        console.log("The task was not deleted ", error)
+      }
+    }
+
+    else {
+      setTasks(tasks.filter(t => task.id !== t.id));
+    }
   }
 
   const handleChangeTask = async (id, newDesc, isCompleted = undefined) => {
@@ -42,10 +55,17 @@ function TaskPage() {
         : task
     );
     setTasks(updatedTasks);
-
   }
 
   const handleSaveTask = async () => {
+    const validTasks = tasks.filter(
+      (task) => task.description && task.description.trim() !== ""
+    );
+
+    if (validTasks.length === 0) {
+      console.log("No valid tasks to save");
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:8080/api/tasks", tasks, {
         headers: { "Content-Type": "application/json" },

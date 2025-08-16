@@ -1,7 +1,3 @@
-import React from "react";
-import { useState } from "react";
-import axios from "axios";
-
 function Task({ task, onDelete, onChangeText, onCompleteTask }) {
 
 
@@ -17,7 +13,7 @@ function Task({ task, onDelete, onChangeText, onCompleteTask }) {
                     onChange={(e) => onChangeText(task.id, e.target.value)}
                 />
                 <img src="https://cdn-icons-png.flaticon.com/128/6460/6460112.png" alt=""
-                    onClick={() => onDelete(task.id)} />
+                    onClick={() => onDelete(task)} />
             </div>
         </>
     )
