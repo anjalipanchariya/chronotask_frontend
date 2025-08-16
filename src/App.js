@@ -1,11 +1,17 @@
-
 import './App.css';
-import Navbar from './components/Navbar';
+import Calendar from './components/Calendar'
+import TaskPage from './components/TaskPage';
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <>
-    <Navbar/>
-    
+      <Router>
+      <Routes>
+        <Route path="/" element={<Calendar />} />
+        <Route path="/tasks/:date" element={<TaskPage />} />
+      </Routes>
+    </Router>
     </>
   );
 }

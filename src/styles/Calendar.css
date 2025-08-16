@@ -1,0 +1,92 @@
+body {
+    color: white;
+    background-color: rgb(32, 32, 33);
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+}
+
+.calendarHeading {
+    color: #00d9ffd7;
+    margin: 28px;
+    font-family: monospace;
+    text-align: center;
+}
+
+.month {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin: 10px;
+    font-family: monospace;
+}
+
+.day {
+    font-weight: bold;
+    padding: 6px;
+    font-size: 1.2rem;
+}
+
+.date {
+    font-size: 1.1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 60%;
+    padding: 8px;
+    margin: auto;   
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-today {
+    background-color: #00d9ffd7;
+}
+
+.date-normal {
+    background-color: #202021;
+}
+
+.dropdownItem {
+    text-align: center;
+    font-family: monospace;
+}
+
+.dropdown {
+    margin: 20px;
+}
+
+#dropdown-basic {
+    color: black;
+    font-family: monospace;
+}
+
+.calendar {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+  .day {
+    font-size: 0.9rem;
+    padding: 4px;
+  }
+
+  .date {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .day {
+    font-size: 0.8rem;
+  }
+
+  .date {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.8rem;
+  }
+}
