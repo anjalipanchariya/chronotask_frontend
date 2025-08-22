@@ -6,9 +6,11 @@ import Task from "../components/Task";
 
 function TaskPage() {
   const { date } = useParams();
+  const API_BASE = "https://chronotask-backend.onrender.com";
+
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/tasks/${date}`)
+    axios.get(`${API_BASE}/api/tasks/${date}`)
       .then(res => {
         // console.log("Fetched tasks:", res.data);
         setTasks(res.data)
@@ -30,7 +32,7 @@ function TaskPage() {
 
     if (task.id !== null && task.id !== undefined) {
       try {
-        axios.delete(`http://localhost:8080/api/tasks/${task.id}`);
+        axios.delete(`${API_BASE}/api/tasks/${task.id}`);
         setTasks(tasks.filter(t => task.id !== t.id));
         console.log("The task with id ", task.id, " was deleted ");
       }
@@ -67,7 +69,7 @@ function TaskPage() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:8080/api/tasks", tasks, {
+      const response = await axios.post(`${API_BASE}/api/tasks`, tasks, {
         headers: { "Content-Type": "application/json" },
       });
       console.log("Tasks saved successfully:", response.data);
@@ -86,7 +88,7 @@ function TaskPage() {
       prevTasks.map(task => (task.id === id ? updatedTask : task))
     );
     try {
-      await axios.patch(`http://localhost:8080/api/tasks/${id}/status?isCompleted=${updatedTask.isCompleted}`);
+      await axios.patch(`${API_BASE}/api/tasks/${id}/status?isCompleted=${updatedTask.isCompleted}`);
       console.log(`Task ${id} marked as completed`);
 
     } catch (error) {
