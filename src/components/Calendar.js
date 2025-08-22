@@ -2,9 +2,6 @@ import React from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useState } from "react";
 import '../styles/Calendar.css';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Task from "./Task";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -20,10 +17,6 @@ const Calendar = () => {
     const currmonth = new Date().getMonth();
 
     const navigate = useNavigate();
-
-    const [showModal, setModal] = useState(false);
-    const handleCloseModal = () => setModal(false);
-
 
     return (
         <>
