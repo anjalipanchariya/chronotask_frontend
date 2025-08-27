@@ -24,7 +24,8 @@ function TaskPage() {
       id: null,
       description: "",
       isCompleted: false,
-      date: date
+      date: date,
+      originalTaskId: null
     }]);
   };
 
@@ -52,7 +53,8 @@ function TaskPage() {
         ? {
           ...task,
           description: newDesc ?? task.description,
-          isCompleted: isCompleted !== undefined ? isCompleted : task.isCompleted
+          isCompleted: isCompleted !== undefined ? isCompleted : task.isCompleted,
+          originalTaskId: task.originalTaskId ?? null
         }
         : task
     );
@@ -69,7 +71,7 @@ function TaskPage() {
       return;
     }
     try {
-      const response = await axios.post(`${API_BASE}/api/tasks`, tasks, {
+      const response = await axios.post(`${API_BASE}/api/tasks`, validTasks, {
         headers: { "Content-Type": "application/json" },
       });
       console.log("Tasks saved successfully:", response.data);
