@@ -132,7 +132,7 @@ function TaskPage() {
 
           {tasks.map((task) => (
             <Task
-              key={task.id ?? Math.random()}
+              key={task.id}
               task={task}
               onDelete={handleDeleteTask}
               onChangeText={handleChangeTask}
