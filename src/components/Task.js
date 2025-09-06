@@ -1,6 +1,5 @@
 function Task({ task, onDelete, onChangeText, onCompleteTask }) {
 
-
     return (
         <>
             <div className="task">

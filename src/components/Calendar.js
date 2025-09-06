@@ -1,9 +1,8 @@
 import React from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useState } from "react";
-import '../styles/Calendar.css';
 import { useNavigate } from 'react-router-dom';
-
+import '../styles/Calendar.css';
 
 const Calendar = () => {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
