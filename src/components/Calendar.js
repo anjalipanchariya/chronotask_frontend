@@ -11,8 +11,8 @@ function Calendar(){
     const currYear = new Date().getFullYear();
     const latestMonth = new Date().getMonth();
     const [curMonth, setCurMonth] = useState(new Date().getMonth());
-    const daysinamonth = (month) => new Date(2025, month + 1, 0).getDate();
-    const firstdayofamonth = (month) => new Date(2025, month, 1).getDay();
+    const daysinamonth = (month) => new Date(currYear, month + 1, 0).getDate();
+    const firstdayofamonth = (month) => new Date(currYear, month, 1).getDay();
 
     const navigate = useNavigate();
 
