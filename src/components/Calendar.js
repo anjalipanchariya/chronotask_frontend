@@ -1,19 +1,18 @@
-import React from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
+import '../styles/Calendar.css';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import '../styles/Calendar.css';
 
-const Calendar = () => {
+function Calendar(){
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
+    const currDay = new Date().getDate();
     const currYear = new Date().getFullYear();
-    const currMonth = new Date().getMonth();
-    const [month, setMonth] = useState(currMonth);
-    const daysInAMonth = (month) => new Date(currYear, month + 1, 0).getDate();
-    const firstDayOfAMonth = (month) => new Date(currYear, month, 1).getDay();
-    const currday = new Date().getDate();
+    const latestMonth = new Date().getMonth();
+    const [curMonth, setCurMonth] = useState(new Date().getMonth());
+    const daysinamonth = (month) => new Date(2025, month + 1, 0).getDate();
+    const firstdayofamonth = (month) => new Date(2025, month, 1).getDay();
 
     const navigate = useNavigate();
 
@@ -23,12 +22,12 @@ const Calendar = () => {
                 <h1 className="calendarHeading">Task Calendar {currYear}</h1>
                 <Dropdown className="dropdown">
                     <Dropdown.Toggle variant="info" id="dropdown-basic">
-                        {months[month]}
+                        {months[curMonth]}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu id="dropdown-menu">
                         {months.map((month, ind) => (
-                            <Dropdown.Item key={ind} className="dropdownItem" onClick={() => (setMonth(ind))}>{month}</Dropdown.Item>
+                            <Dropdown.Item key={ind} className="dropdownItem" onClick={() => (setCurMonth(ind))}>{month}</Dropdown.Item>
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>
@@ -38,18 +37,19 @@ const Calendar = () => {
                         <div className="day">{day}</div>
                     ))}
 
-                    {Array.from({ length: firstDayOfAMonth(month) - 1 }, (_, i) => (
+                    {Array.from({ length: firstdayofamonth(curMonth) - 1 }, (_, i) => (
                         <div></div>
                     ))}
-                    {Array.from({ length: daysInAMonth(month) }, (_, i) => {
-                        const isToday = currday === i + 1;
-                        const isCurrMonth = currMonth === month;
+                    {Array.from({ length: daysinamonth(curMonth) }, (_, i) => {
+                        const isToday = currDay === i + 1;
+                        const isCurrMonth = latestMonth === curMonth;
                         const handleDayClick = () => {
                             const day = String(i + 1).padStart(2, '0');
-                            const month = String(month + 1).padStart(2, '0');
+                            const month = String(curMonth + 1).padStart(2, '0');
                             const dateStr = `${currYear}-${month}-${day}`;
 
                             navigate(`/tasks/${dateStr}`);
+                            setModal(true);
                         };
                         return (
                             <div
