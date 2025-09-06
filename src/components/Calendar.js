@@ -49,7 +49,6 @@ function Calendar(){
                             const dateStr = `${currYear}-${month}-${day}`;
 
                             navigate(`/tasks/${dateStr}`);
-                            setModal(true);
                         };
                         return (
                             <div
