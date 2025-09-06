@@ -6,6 +6,7 @@ import Task from "../components/Task";
 import Spinner from 'react-bootstrap/Spinner';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { v4 as uuidv4 } from "uuid";
 
 function TaskPage() {
   const { date } = useParams();
@@ -35,6 +36,7 @@ function TaskPage() {
     console.log("clicked");
     setTasks([...tasks, {
       id: null,
+      tempId: uuidv4(),
       description: "",
       isCompleted: false,
       date: date,
@@ -48,26 +50,26 @@ function TaskPage() {
       try {
         axios.delete(`${API_BASE}/api/tasks/${task.id}`);
         setTasks(tasks.filter(t => task.id !== t.id));
+        toast.success("Task deleted successfully");
         console.log("The task with id ", task.id, " was deleted ");
       }
       catch (error) {
+        toast.error("Task deletion failed");
         console.log("The task was not deleted ", error)
       }
     }
-
     else {
       setTasks(tasks.filter(t => task.id !== t.id));
     }
   }
 
-  const handleChangeTask = async (id, newDesc, isCompleted = undefined) => {
+  const handleChangeTask = async (id, tempId, newDesc, isCompleted = undefined) => {
     const updatedTasks = tasks.map(task =>
-      task.id === id
+      (task.id === id && id !== null) || (task.tempId && task.tempId === tempId)
         ? {
           ...task,
           description: newDesc ?? task.description,
-          isCompleted: isCompleted !== undefined ? isCompleted : task.isCompleted,
-          originalTaskId: task.originalTaskId ?? null
+          isCompleted: isCompleted !== undefined ? isCompleted : task.isCompleted
         }
         : task
     );
@@ -88,6 +90,8 @@ function TaskPage() {
       const response = await axios.post(`${API_BASE}/api/tasks`, validTasks, {
         headers: { "Content-Type": "application/json" },
       });
+      const savedTasks = response.data;
+      setTasks(savedTasks);
       toast.success("Tasks saved successfully");
       console.log("Tasks saved successfully:", response.data);
     } catch (error) {
@@ -132,7 +136,7 @@ function TaskPage() {
 
           {tasks.map((task) => (
             <Task
-              key={task.id}
+              key={task.id ?? task.tempId}
               task={task}
               onDelete={handleDeleteTask}
               onChangeText={handleChangeTask}
@@ -145,7 +149,7 @@ function TaskPage() {
           </Button>
         </>
       )}
-      <ToastContainer position="top-center" autoClose={5000} />
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 };
