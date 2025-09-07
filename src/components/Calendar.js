@@ -11,8 +11,8 @@ function Calendar(){
     const currYear = new Date().getFullYear();
     const latestMonth = new Date().getMonth();
     const [curMonth, setCurMonth] = useState(new Date().getMonth());
-    const daysinamonth = (month) => new Date(currYear, month + 1, 0).getDate();
-    const firstdayofamonth = (month) => new Date(currYear, month, 1).getDay();
+    const daysInAMonth = (month) => new Date(currYear, month + 1, 0).getDate();
+    const firstDayOfAMonth = (month) => new Date(currYear, month, 1).getDay();
 
     const navigate = useNavigate();
 
@@ -27,7 +27,9 @@ function Calendar(){
 
                     <Dropdown.Menu id="dropdown-menu">
                         {months.map((month, ind) => (
-                            <Dropdown.Item key={ind} className="dropdownItem" onClick={() => (setCurMonth(ind))}>{month}</Dropdown.Item>
+                            <Dropdown.Item key={ind} className="dropdownItem" onClick={() => (setCurMonth(ind))}>
+                                {month}
+                            </Dropdown.Item>
                         ))}
                     </Dropdown.Menu>
                 </Dropdown>
@@ -37,16 +39,16 @@ function Calendar(){
                         <div className="day">{day}</div>
                     ))}
 
-                    {Array.from({ length: firstdayofamonth(curMonth) - 1 }, (_, i) => (
+                    {Array.from({ length: firstDayOfAMonth(curMonth) - 1 }, (_, i) => (
                         <div></div>
                     ))}
-                    {Array.from({ length: daysinamonth(curMonth) }, (_, i) => {
+                    {Array.from({ length: daysInAMonth(curMonth) }, (_, i) => {
                         const isToday = currDay === i + 1;
                         const isCurrMonth = latestMonth === curMonth;
                         const handleDayClick = () => {
                             const day = String(i + 1).padStart(2, '0');
                             const month = String(curMonth + 1).padStart(2, '0');
-                            const dateStr = `${currYear}-${month}-${day}`;
+                            const dateStr = `${day}-${month}-${currYear}`;
 
                             navigate(`/tasks/${dateStr}`);
                         };
