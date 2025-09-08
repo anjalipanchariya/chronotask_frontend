@@ -48,7 +48,7 @@ function Calendar(){
                         const handleDayClick = () => {
                             const day = String(i + 1).padStart(2, '0');
                             const month = String(curMonth + 1).padStart(2, '0');
-                            const dateStr = `${currYear}-${month}-${date}`;
+                            const dateStr = `${currYear}-${month}-${day}`;
 
                             navigate(`/tasks/${dateStr}`);
                         };
