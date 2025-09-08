@@ -33,7 +33,6 @@ function TaskPage() {
   }, [date]);
 
   const handleAddTask = () => {
-    console.log("clicked");
     setTasks([...tasks, {
       id: null,
       tempId: uuidv4(),
