@@ -7,10 +7,14 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
+import { parseISO, format } from 'date-fns';
 
 function TaskPage() {
   const { date } = useParams();
+  
   const API_BASE = "https://chronotask-backend.onrender.com";
+
+  const formattedDate = format(parseISO(date), 'dd/MM/yyyy');
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -122,7 +126,7 @@ function TaskPage() {
 
   return (
     <div className="taskPage">
-      <h2>Tasks for {date}</h2>
+      <h2>Tasks for {formattedDate}</h2>
       {loading ? (
         <div style={{ textAlign: "center", margin: "2rem" }}>
           <Spinner animation="border" variant="info" /> Loading tasks...
